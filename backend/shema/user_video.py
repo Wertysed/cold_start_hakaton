@@ -7,4 +7,9 @@ class UserVideoIn(BaseModel):
     mark: int
 
 
+class UserVideoFront(BaseModel):
+
+    video_id: str
+    mark: int
+
 

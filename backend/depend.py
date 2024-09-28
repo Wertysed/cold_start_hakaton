@@ -25,3 +25,4 @@ def user_video_services(db: Session = Depends(get_db)):
 
 def video_service(db: Session = Depends(get_db)):
     return VideoService(VideoRepository(db))
+
