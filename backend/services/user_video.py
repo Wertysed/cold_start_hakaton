@@ -1,9 +1,9 @@
 from repositories.repo import AbstractRepository
 from shema.user_video import UserVideoIn
-
+from shema.user import UserDB
 
 def neuro(d):
-    return d
+    return [i.video_id for i in d] 
     
     
 
@@ -21,10 +21,18 @@ class UserVideoService:
 
     def get_videos(self, user_video_info: list[UserVideoIn]) -> list[UserVideoIn]:
         res = []  
+        print(";asldkfj;laskdjf;lkasdjrfa;lkjslk;j")
+        if not self.user_repository.read_by_options({"cookies": user_video_info[0].cookies}):
+            self.user_repository.create(UserDB(cookies =user_video_info[0].cookies))
+
         for one in user_video_info:
             self.create(one)
         new_videos = neuro(self.read_by_options({"cookies": user_video_info[0].cookies}))
-        return new_videos
+        new_videos_finded = [self.video_repository.read_by_options({"id_hash": video_with_out_inf})[0] for video_with_out_inf in new_videos] 
+        for i in new_videos_finded:
+            print(i.title)
+
+        return new_videos_finded 
 
 
     

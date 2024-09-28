@@ -7,7 +7,7 @@ class Video(Base):
     __tablename__ = "videos"
 
     id = Column(Integer, primary_key=True, index=True)
-    id_hash = Column(String)
+    id_hash = Column(String, unique=True)
 
     title = Column(String)
     description = Column(String)

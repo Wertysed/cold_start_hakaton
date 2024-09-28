@@ -5,6 +5,12 @@ class Video(BaseModel):
     title: str
     description: str
 
+class VideoDB(BaseModel):
+    id_hash: str
+    title: str
+    description: str
+
+
 
 
 class Videos(BaseModel):
