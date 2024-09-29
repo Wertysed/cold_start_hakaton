@@ -1,0 +1,169 @@
+* {
+    margin:0;
+    padding:0;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+@font-face {
+    font-family: 'Rutube';
+    src: url("./RF_RUTUBE_Medium.ttf");
+    font-weight: bold;
+    font-style: normal;
+}
+
+.image {
+    width: 30%;
+    height: 120%;
+    margin: 50px;
+}
+
+.video {
+    width: 42.5%;
+    text-align: start;
+    color: white;
+    margin-left: 5%;
+    margin-top: 5%;
+    display:inline;
+    float:left;
+    font-family: "Rutube"
+}
+
+.App {
+    color: black;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #191919;
+    overflow: auto;
+}
+
+.hat {
+    width: 100%;
+}
+
+.header {
+    font-family: "Rutube";
+    font-size:x-large;
+    margin-left: 5%;
+    color: white;
+}
+
+.reversed {
+    -moz-transform: scale(-1, -1);
+    -o-transform: scale(-1, -1);
+    -webkit-transform: scale(-1, -1);
+    transform: scale(-1, -1);
+}
+
+.reversed:active {
+        background-color: white;
+}
+
+.demoCustomCheckbox  {
+    display: none;
+}
+
+.demoCustomCheckbox  + label {
+        position: relative;
+        padding-left: 30px;
+        height: 1.5em;
+        display: flex;
+        align-items: center;
+        color: #000;
+        cursor: pointer;
+        user-select: none;
+}
+
+.demoCustomCheckbox + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.4em;
+    height: 1.4em;
+    background-image: url("../like.png");
+    background-repeat: no-repeat;
+    border-color: #00b50e;;
+    background-size: contain;
+}
+
+.demoCustomCheckbox:checked + label::before {
+    background-image: url("../liked.png");
+    background-repeat: no-repeat;
+    border-color: #00b50e;;
+    background-size: contain;
+}
+.demoCustomCheckboxDis  {
+    display: none;
+}
+
+.demoCustomCheckboxDis  + label {
+        position: relative;
+        padding-left: 30px;
+        height: 1.5em;
+        display: flex;
+        align-items: center;
+        color: #000;
+        cursor: pointer;
+        user-select: none;
+}
+
+.demoCustomCheckboxDis + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.4em;
+    height: 1.4em;
+    background-image: url("../dislike.png");
+    border-color: #00b50e;;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.demoCustomCheckboxDis:checked + label::before {
+    background-image: url("../disliked.png");
+    border-color: #00b50e;;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+
+.button {
+    -webkit-appearance: button;
+    color: white;
+    width: 25%;
+    height: 60px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #ED143B;
+    border-radius: 8px;
+    background-color: #ED143B;
+    font-family: "Rutube";
+    font-size: xx-large;
+    margin-top: 7%;
+    margin-bottom: 100px;
+}
+
+.button:active {
+    background-color: white;
+    border-color: white;
+    color: #ED143B;
+    animation-duration: 0.25s;
+    animation-name: buttanimation;
+}
+
+@keyframes buttanimation {
+    from {
+        background-color: #ED143B;
+        border-color: #ED143B;
+        color: white
+    }
+    to {
+        background-color: white;
+        border-color: white;
+        color: #ED143B
+    }
+}
