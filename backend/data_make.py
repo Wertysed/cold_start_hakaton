@@ -1,23 +1,6 @@
-import pyarrow.parquet as pq
-import pandas as pd
 import psycopg2 
-import numpy as np
-from config import (
-    DB_HOST,
-    DB_NAME,
-    DB_PASS,
-    DB_USER,
-)
 import sys
-#pq_file = pq.ParquetFile("video_stat.parquet")
-#pq_file.write.csv("video_stat_csv.csv")
 
-param_dic = {
-    "host"      : "localhost",
-    "database"  : "cold_start_hakaton",
-    "user"      : "postgres", 
-    "password"  :  "0000"
-}
 
 
 def connect(params_dic):
