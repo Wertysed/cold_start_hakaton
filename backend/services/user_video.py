@@ -4,7 +4,7 @@ from shema.user import UserDB
 from random import randint
 
 def neuro(d):
-    return [randint(1, 15*(10**5)) for _ in d] 
+    return [randint(1, 15*(10**5)) for _ in range(10)] 
     
     
 
