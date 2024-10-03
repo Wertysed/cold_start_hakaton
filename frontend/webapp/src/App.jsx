@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Provider, LikeButton } from "@lyket/react";
+import axios, { Axios } from "axios"
 import img from "./hat.png"
 import "./styles/main.css"
 import {v4 as uuidv4} from 'uuid';
@@ -8,49 +9,15 @@ import {v4 as uuidv4} from 'uuid';
 
 
 function App() {                                                           
-  let images = [
-    {
-      name: "Video0",
-      id: "909"
-    },
-    {
-      name: "Video0",
-      id: "513515"
-    },
-    {
-      name: "Video0",
-      id: "3"
-    },
-    {
-      name: "Video0",
-      id: "4"
-    },
-    {
-      name: "Video0",
-      id: "3123"
-    },
-    {
-      name: "Video0",
-      id: "5235"
-    },
-    {
-      name: "Video0",
-      id: "32"
-    },
-    {
-      name: "Video0",
-      id: "4353"
-    },
-    {
-      name: "Video0",
-      id: "325"
-    },
-    {
-      name: "Video0",
-      id: "22"
-    },
-  ]
+
   const [state, setState] = useState(1);
+  const [data, setData] = useState([]);
+  const images = [
+    {
+      "id": "fdsfs",
+      "name": "fdsaf"
+    }
+  ]
 
   const refreshVideos = (likes, dislikes) => {
     let sendLikesDises = []
@@ -63,7 +30,7 @@ function App() {
     dislikes.map((videoId) => {
       sendLikesDises.push({
         "video_id" : videoId,
-        "mark" : 1
+        "mark" : 0
       })
     })
     const requestWithRates = {
@@ -73,6 +40,14 @@ function App() {
       "checked_video" : sendLikesDises
     }
     console.log(requestWithRates)
+    axios.post("http://89.111.170.10:9999/get_video", requestWithRates)
+    .then(response => {setData(response.data);
+      for (let i = 0; i < 10; i++){
+        document.getElementById(i).checked = false
+        document.getElementById(i + "dis").checked = false
+      }
+    }
+      )
   }
 
   let likedVideos = []
@@ -111,8 +86,27 @@ function App() {
         }
       }
     }
-    console.log("Dislicked Vieos: " + dislikedVideos)
-    console.log("licked Vieos: " + likedVideos)
+    let checkedVideos = []
+    dislikedVideos.map((videoData) => {
+      checkedVideos.push({
+        "video_id": videoData,
+        "mark": 0,
+      })
+    })
+    likedVideos.map((videoData) => {
+      checkedVideos.push({
+        "video_id": videoData,
+        "mark": 1,
+      })
+    })
+    console.log(checkedVideos)
+    let req = 
+    {
+      "cookies": {
+        "session_id": localStorage.getItem("userId")
+      },
+      "checked_video": checkedVideos
+    }
   }
 
   useEffect(() => {
@@ -122,19 +116,23 @@ function App() {
     else {
       console.log("LOgged bu ID")
     }
-    let request = {
-      "cookies" : {
+    
+    let req = 
+    {
+      "cookies": {
         "session_id": localStorage.getItem("userId")
       },
-      "checked_video" : [
-        {
-          "video_id": "",
-          "mark" : "",
-        }
+      "checked_video": [
       ]
     }
-    console.log(request)
-  })
+
+
+    axios.post("http://89.111.170.10:9999/get_video", req)
+    .then(response => {setData(response.data)}
+      )
+    .catch(error => console.error(error));
+  }, []);
+
     return (
       <div className="App">
         <img draggable="false" className="hat" src={img}></img>
@@ -143,20 +141,27 @@ function App() {
           <h1 style={{marginBottom: "40px", marginTop: "5%"}}>Ваши рекомендации:</h1>
           <hr style={{width: "95%", height: "3px", backgroundColor: "white", borderRadius: "40px"}}></hr>
         </div>
-        {images.map((videoData, key) =>{ 
+        {data.map((videoData, key) =>{ 
+          console.log(videoData.video_id)
           return(
-          <div className="video" sty  le={{textAlign: "center"}}>
-            <h style={{textAlign: "start"}}>{videoData.name}</h> 
-            <p style={{textAlign: "start", marginBottom: "20px"}}>Описание выпыпвыпып выпып выпып выпып выпып выпып выпып выпып выпып выпып выпып</p>
+          <div className="video" style={{display: "inline-flex"}}>
+              
+              <div style={{display: "inline-block"}}>
+                  <h style={{textAlign: "start"}}>{videoData.title}</h> 
+                  <p style={{textAlign: "start", marginBottom: "20px", fontSize: "10pt", color: "gray", marginTop: "7px", overflow: "auto", maxHeight: "150px", marginBottom: "10px"}}>{videoData.description}</p>
+
+                <div style={{display: "inline-flex"}}>
+                  <p style = {{marginRight: "30px"}}>
+                    <input type="checkbox" class="demoCustomCheckbox" id={key} onClick={() => rated(videoData.video_id, key, "like")}/>
+                    <label style={{width: "10px", clear: "both"}} for={key}> </label>
+                  </p>
+                  <p style = {{clear: "both"}}>
+                    <input type="checkbox" class="demoCustomCheckboxDis" id={key + "dis"} onClick={() => rated(videoData.video_id, key, "dislike")}/>
+                    <label style={{width: "10px"}} for={key + "dis"}> </label>
+                  </p>
+                  </div>
+                </div>
             
-            <p style = {{marginRight: "30px", display: "inline"}}>
-              <input type="checkbox" class="demoCustomCheckbox" id={key} onClick={() => rated(videoData.id, key, "like")}/>
-              <label style={{width: "10px", display: "inline"}} for={key}> </label>
-            </p>
-            <p style = {{display: "inline"}}>
-              <input type="checkbox" class="demoCustomCheckboxDis" id={key + "dis"} onClick={() => rated(videoData.id, key, "dislike")}/>
-              <label style={{width: "10px", display: "inline"}} for={key + "dis"}> </label>
-          </p>
           </div>
         )})}
         <div style={{width: "100%", float: "left", textAlign: "center"}}>

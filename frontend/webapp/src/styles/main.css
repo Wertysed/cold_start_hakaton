@@ -6,6 +6,12 @@ html {
     scroll-behavior: smooth;
 }
 
+body {
+    scrollbar-width: thin;
+    scrollbar-color: gray #191919;
+  }
+
+
 @font-face {
     font-family: 'Rutube';
     src: url("./RF_RUTUBE_Medium.ttf");
@@ -25,9 +31,7 @@ html {
     color: white;
     margin-left: 5%;
     margin-top: 5%;
-    display:inline;
-    float:left;
-    font-family: "Rutube"
+    font-family: "Rutube";
 }
 
 .App {
