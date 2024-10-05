@@ -57,7 +57,7 @@ def hello():
 
 
 @app.post("/get_video", response_model=list[Video])
-def get_video(cookies: Annotated[Cookies, Cookie()], checked_video: list[UserVideoFront], user_video_services: Annotated[UserVideoService, Depends(user_video_services)]):
+def get_video(cookies: Cookies, checked_video: list[UserVideoFront], user_video_services: Annotated[UserVideoService, Depends(user_video_services)]):
     res = []
     checked_video: list[UserVideoIn] = [UserVideoIn(**video.model_dump(), cookies=cookies.session_id) for video in checked_video]
     for i in user_video_services.get_videos(cookies.session_id, checked_video):
