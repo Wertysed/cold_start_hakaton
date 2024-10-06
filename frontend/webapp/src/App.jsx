@@ -40,7 +40,7 @@ function App() {
       "checked_video" : sendLikesDises
     }
     console.log(requestWithRates)
-    axios.post("http://89.111.170.10:9999/get_video", requestWithRates)
+    axios.post("/api/get_video", requestWithRates)
     .then(response => {setData(response.data);
       for (let i = 0; i < 10; i++){
         document.getElementById(i).checked = false
